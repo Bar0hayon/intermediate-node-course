@@ -2,9 +2,16 @@ const express= require('express');
 const mongoose= require('mongoose');
 const bodyParser= require('body-parser');
 const User=require('./models/User');
-mongoose.connect('mongodb://localhost/userData')
-const port=8000;
+
+let port = process.env.PORT;
+let URIstring = process.env.MONGOLAB_URI || 'mongodb://localhost/userData';
+
+mongoose.connect(URIstring)
+
 const app= express();
+if (port == null || port == "") {
+  port = 8000;
+}
 
 app.use(bodyParser.json());
 
